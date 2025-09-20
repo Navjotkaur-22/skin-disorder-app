@@ -1,7 +1,7 @@
 # app/main.py
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-from app.model import load_model, predict
+from .model import load_model, predict
 
 app = FastAPI(title="Skin Disorder Detector (tabular)")
 
