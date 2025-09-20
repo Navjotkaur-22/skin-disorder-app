@@ -1,10 +1,10 @@
 import streamlit as st
 from app.model import load_model, predict
 
-st.set_page_config(page_title="Skin Disorder Detector", layout="centered")
+st.set_page_config(page_title="Skin Disorder Detector", layout="wide")
 
 st.title("Skin Disorder Detector — Demo")
-st.write("Enter numeric features as comma-separated values (same order as model training).")
+st.write("Fill in the 34 features below:")
 
 @st.cache_resource
 def load():
@@ -12,17 +12,22 @@ def load():
 
 MODEL = load()
 
-st.subheader("Input features")
-features_text = st.text_area("Comma-separated features", placeholder="e.g. 0.12, 1.45, 3.2, ...")
+# Make input fields
+features = []
+cols = st.columns(4)  # 4 columns layout for clean UI
+
+for i in range(34):
+    with cols[i % 4]:
+        val = st.number_input(f"Feature {i+1}", value=0.0, step=0.1, format="%.2f")
+        features.append(val)
 
 if st.button("Predict"):
-    if not features_text.strip():
-        st.warning("Please enter feature values.")
-    else:
-        try:
-            features = [float(x.strip()) for x in features_text.split(",") if x.strip()!='']
-            res = predict(MODEL, features)
-            st.success(f"Prediction: {res}")
-            st.json({"input": features, "prediction": res})
-        except Exception as e:
-            st.error(f"Error running prediction: {e}")
+    try:
+        res = predict(MODEL, features)
+        label = res["prediction"] if isinstance(res, dict) and "prediction" in res      else res
+        st.success(f"Predicted Disease: {label}")
+
+    except Exception as e:
+        st.error(f"Error: {e}")
+
+
