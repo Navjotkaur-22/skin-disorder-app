@@ -6,6 +6,8 @@ This project showcases an end-to-end Data Science workflow — from data preproc
 
 🌐 **Live Demo**  
 👉 [Skin Disorder Classification – Streamlit App](https://skin-disorder-app-z8vnf3qzghtub72mbyfg5s.streamlit.app/)
+[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://skin-disorder-app-z8vnf3qzghtub72mbyfg5s.streamlit.app/)
+
 
 ---
 
